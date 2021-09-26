@@ -3,8 +3,8 @@ import callApi from "axios";
 import { useHistory } from "react-router-dom";
 import "../../styles/login.css";
 
-const url = "http://localhost:3001";
-// const url = "https://chat-socket-mern.herokuapp.com";
+// const url = "http://localhost:3001";
+const url = "https://chat-socket-mern.herokuapp.com";
 
 export default function Register() {
   const history = useHistory();

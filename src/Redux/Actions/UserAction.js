@@ -5,8 +5,8 @@ import {
   updateDisconnect,
 } from "../Reducers/UserReducer";
 
-const url = "http://localhost:3001";
-// const url = "https://chat-socket-mern.herokuapp.com";
+// const url = "http://localhost:3001";
+const url = "https://chat-socket-mern.herokuapp.com";
 
 export const handleGetUser = (dispatch) => {
   callApi({

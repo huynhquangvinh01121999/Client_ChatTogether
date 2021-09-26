@@ -5,8 +5,8 @@ import { AuthContext } from "../../Context/AuthProvider";
 import { SocketContext } from "../../Context/SocketProvider";
 import "../../styles/login.css";
 
-const url = "http://localhost:3001";
-// const url = "https://chat-socket-mern.herokuapp.com";
+// const url = "http://localhost:3001";
+const url = "https://chat-socket-mern.herokuapp.com";
 
 export default function Auth() {
   const { socket } = useContext(SocketContext);

@@ -1,8 +1,8 @@
 import callApi from "axios";
 import { getMessages, updateMessage } from "../Reducers/MessagesReducer";
 
-const url = "http://localhost:3001";
-// const url = "https://chat-socket-mern.herokuapp.com";
+// const url = "http://localhost:3001";
+const url = "https://chat-socket-mern.herokuapp.com";
 
 export const handleMessageToMe = (dispatch) => {
   const user = localStorage.getItem("userInfo");
