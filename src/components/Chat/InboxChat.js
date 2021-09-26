@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import $ from "jquery";
 import { useSelector } from "react-redux";
 import { AuthContext } from "../../Context/AuthProvider";
 import { ChatContext } from "../../Context/ChatProvider";
