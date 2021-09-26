@@ -1,6 +1,6 @@
 {
-  "short_name": "Chat với nhau",
-  "name": "Chat với nhau",
+  "short_name": "Chat App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
