@@ -10,17 +10,17 @@ import SocketProvider from "./Context/SocketProvider";
 function App() {
   return (
     <BrowserRouter>
-      <Switch>
-        <AuthProvider>
-          <ChatProvider>
-            <SocketProvider>
+      <AuthProvider>
+        <ChatProvider>
+          <SocketProvider>
+            <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Auth} />
               <Route exact path="/register" component={Register} />
-            </SocketProvider>
-          </ChatProvider>
-        </AuthProvider>
-      </Switch>
+            </Switch>
+          </SocketProvider>
+        </ChatProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
