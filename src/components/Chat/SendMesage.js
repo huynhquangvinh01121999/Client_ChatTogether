@@ -14,7 +14,6 @@ export default function SendMesage() {
   const listMessage = useSelector((state) => state.messages.data);
 
   const handleSendMess = (e) => {
-    console.log(socket);
     e.preventDefault();
     // console.log(e);
     if (content.trim() !== "") {
