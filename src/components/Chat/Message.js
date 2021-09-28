@@ -20,9 +20,9 @@ export default function Message() {
     <>
       <div className="position-relative">
         <div className="chat-messages p-4" id="main_chat">
-          {messages.map((message) =>
+          {messages.map((message, index) =>
             message.FromUser === userInfo ? (
-              <div className="chat-message-right pb-4">
+              <div className="chat-message-right pb-4" key={index}>
                 <div>
                   <img
                     src="https://toppng.com/uploads/preview/vu-thi-ha-user-pro-icon-115534024853ae3gswzwd.png"
@@ -43,7 +43,7 @@ export default function Message() {
                 </div>
               </div>
             ) : (
-              <div className="chat-message-left pb-4">
+              <div className="chat-message-left pb-4" key={index}>
                 <div>
                   <img
                     src="https://toppng.com/uploads/preview/vu-thi-ha-user-pro-icon-115534024853ae3gswzwd.png"

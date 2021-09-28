@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { useSelector } from "react-redux";
 import { AuthContext } from "../../Context/AuthProvider";
 import { ChatContext } from "../../Context/ChatProvider";
@@ -10,21 +10,30 @@ export default function InboxChat() {
   const users = useSelector((state) => state.users.data);
   const listMessage = useSelector((state) => state.messages.data);
 
-  const handleClickInbox = (user) => {
-    const resultMessageOfUserFirst = listMessage.filter(
-      (message) =>
-        message.FromUser === user.UserName || message.ToUser === user.UserName
-    );
+  const handleClickInbox = useCallback(
+    (user) => {
+      const resultMessageOfUserFirst = listMessage.filter(
+        (message) =>
+          message.FromUser === user.UserName || message.ToUser === user.UserName
+      );
 
-    // handleSetUserInbox(dispatch, user);
-    setUserInbox(user);
-    setMessages(resultMessageOfUserFirst);
-    setIsShowChatBox(false);
+      setUserInbox({
+        ClientId: user.ClientId,
+        UserName: user.UserName,
+      });
+      setMessages(resultMessageOfUserFirst);
+      setIsShowChatBox(false);
 
-    // $("#main_chat").animate({
-    //   scrollTop: $("#main_chat")[0].scrollHeight,
-    // });
-  };
+      // localStorage.setItem(
+      //   PREX + "userInbox",
+      //   JSON.stringify({
+      //     ClientId: user.ClientId,
+      //     UserName: user.UserName,
+      //   })
+      // );
+    },
+    [setMessages, setUserInbox, listMessage]
+  );
 
   return (
     <>
@@ -58,7 +67,6 @@ export default function InboxChat() {
                 />
                 <div className="flex-grow-1 ml-3">
                   {user.UserName}
-
                   <div className="small">
                     {user.Status ? (
                       <span className="chat-online">Đang hoạt động</span>

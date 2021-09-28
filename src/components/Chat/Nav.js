@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
 import { ChatContext } from "../../Context/ChatProvider";
-import { SocketContext } from "../../Context/SocketProvider";
+import { useSocket } from "../../Context/SocketProvider";
+
+const PREX = "olachat-";
 
 export default function Nav() {
-  const { socket } = useContext(SocketContext);
+  const { socket } = useSocket();
   const { setIsAuthen, userInfo, clientId, setClientId } =
     useContext(AuthContext);
   const { setIsShowChatBox } = useContext(ChatContext);
@@ -13,15 +15,30 @@ export default function Nav() {
     setIsAuthen(false);
     setIsShowChatBox(true);
     setClientId("");
-    localStorage.removeItem("isAuthen");
-    localStorage.removeItem("userInfo");
-
+    localStorage.removeItem(PREX + "isAuthen");
+    localStorage.removeItem(PREX + "userInfo");
     socket.emit("acceptDisconnect", clientId);
+    window.location.reload();
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light navbar-laravel">
+      <nav
+        className="navbar navbar-expand-lg navbar-laravel"
+        style={{ backgroundColor: "black", color: "white", height: "70px" }}
+      >
         <div className="container">
+          <span
+            style={{
+              fontSize: "42px",
+              fontWeight: "700",
+              color: "#00FF00",
+              fontFamily: "Stick No Bills, sans-serif",
+              wordSpacing: "2px",
+              letterSpacing: "2px",
+            }}
+          >
+            Aloha chat
+          </span>
           <button
             className="navbar-toggler"
             type="button"
@@ -30,6 +47,7 @@ export default function Nav() {
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            style={{ color: "white" }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +68,11 @@ export default function Nav() {
                 <span className="nav-link">Chào {userInfo}</span>
               </li>
               <li className="nav-item">
-                <span className="nav-link cursor" onClick={handleLogout}>
+                <span
+                  className="nav-link cursor"
+                  onClick={handleLogout}
+                  style={{ cursor: "pointer" }}
+                >
                   Đăng xuất
                 </span>
               </li>

@@ -17,7 +17,9 @@ export default function InfoHeader() {
             />
           </div>
           <div className="flex-grow-1 pl-3">
-            <strong>{userInbox ? userInbox.UserName : ""}</strong>
+            <strong>
+              {userInbox ? userInbox.UserName : ""}
+            </strong>
           </div>
           <div>
             <button className="btn btn-primary btn-lg mr-1 px-3">

@@ -1,18 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AuthContext } from "../../Context/AuthProvider";
 import { ChatContext } from "../../Context/ChatProvider";
-import { SocketContext } from "../../Context/SocketProvider";
+import { useSocket } from "../../Context/SocketProvider";
 import { handleUpdateMessage } from "../../Redux/Actions/MessageAction";
 
 export default function SendMesage() {
+  const { socket } = useSocket();
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-  const { socket } = useContext(SocketContext);
   const { userInfo } = useContext(AuthContext);
   const { userInbox, messages, setMessages } = useContext(ChatContext);
+  const listMessage = useSelector((state) => state.messages.data);
 
   const handleSendMess = (e) => {
+    console.log(socket);
     e.preventDefault();
     // console.log(e);
     if (content.trim() !== "") {
@@ -26,20 +28,24 @@ export default function SendMesage() {
       };
 
       socket.emit("saveMessToDb", request);
-      socket.emit("sendMess", { ...request, userInbox });
-      setContent("");
+      socket.emit("send-mess", {
+        request: request,
+        clientId: userInbox.ClientId,
+      });
       setMessages([...messages, request]);
       handleUpdateMessage(dispatch, request);
+      setContent("");
     }
   };
 
   useEffect(() => {
-    if (socket) {
-      socket.on("replySendMess", (data) => {
-        setMessages([...messages, data]);
-      });
-    }
-  });
+    const resultMessageOfUserFirst = listMessage.filter(
+      (message) =>
+        message.FromUser === userInbox.UserName ||
+        message.ToUser === userInbox.UserName
+    );
+    setMessages(resultMessageOfUserFirst);
+  }, [listMessage, userInbox]);
 
   return (
     <>
@@ -53,7 +59,11 @@ export default function SendMesage() {
               placeholder="Nhập nội dung tin nhắn..."
               onChange={(e) => setContent(e.target.value)}
             />
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={(e) => handleSendMess(e)}
+            >
               Gửi
             </button>
           </div>

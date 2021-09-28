@@ -5,8 +5,8 @@ export const ChatContext = React.createContext();
 export default function ChatProvider({ children }) {
   const [messages, setMessages] = useState([]);
   const [userInbox, setUserInbox] = useState({
-    ClientId: "",
-    UserName: "",
+    ClientId: null,
+    UserName: null,
   });
   const [isShowChatBox, setIsShowChatBox] = useState(true);
 

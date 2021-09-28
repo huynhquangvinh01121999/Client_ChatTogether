@@ -2,14 +2,15 @@ import React, { useContext, useState, useEffect } from "react";
 import callApi from "axios";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
-import { SocketContext } from "../../Context/SocketProvider";
 import "../../styles/login.css";
+import { useSocket } from "../../Context/SocketProvider";
+import { PREX } from "../../contants/prev";
 
 // const url = "http://localhost:3001";
 const url = "https://chat-socket-mern.herokuapp.com";
 
 export default function Auth() {
-  const { socket } = useContext(SocketContext);
+  const { socket } = useSocket();
   const history = useHistory();
   const { isAuthen, setIsAuthen } = useContext(AuthContext);
   const [username, setUserName] = useState("");
@@ -36,11 +37,11 @@ export default function Auth() {
         var result = res.data;
         if (result.status) {
           alert(result.message);
-          localStorage.setItem("isAuthen", true);
-          localStorage.setItem("userInfo", username);
-          setIsAuthen(true);
           socket.emit("setOnlineLogin", username);
-          history.push("/login");
+          localStorage.setItem(PREX + "isAuthen", true);
+          localStorage.setItem(PREX + "userInfo", username);
+          setIsAuthen(true);
+          history.push("/");
         }
       })
       .catch((err) => console.log(err));
@@ -50,21 +51,35 @@ export default function Auth() {
       <main className="login-form">
         <div className="cotainer">
           <div className="row justify-content-center">
-            <div className="col-md-8">
-              <div className="card">
-                <div className="card-header">Đăng nhập</div>
+            <div className="col-md-5">
+              <div className="card" style={{ borderRadius: "10px" }}>
+                <div
+                  className="card-header text-center h3"
+                  style={{
+                    fontWeight: "900",
+                    backgroundColor: "black",
+                    color: "#00FF00",
+                    fontFamily: "Stick No Bills, sans-serif",
+                    fontSize: "40px",
+                    lineHeight: "40px",
+                    wordSpacing: "2px",
+                    letterSpacing: "2px",
+                    borderTopRightRadius: "10px",
+                    borderTopLeftRadius: "10px",
+                  }}
+                >
+                  Aloha đăng nhập
+                </div>
                 <div className="card-body">
                   <form onSubmit={(e) => handleLogin(e)}>
                     <div className="form-group row">
-                      <label className="col-md-4 col-form-label text-md-right">
-                        Tài khoản
-                      </label>
-                      <div className="col-md-6">
+                      <label className="col-md-2 col-form-label text-md-right"></label>
+                      <div className="col-md-8">
                         <input
                           value={username}
                           type="text"
                           className="form-control"
-                          placeholder="Nhập tài khoản..."
+                          placeholder="Nhập tài khoản của bạn..."
                           required
                           onChange={(e) => setUserName(e.target.value)}
                         />
@@ -72,15 +87,13 @@ export default function Auth() {
                     </div>
 
                     <div className="form-group row">
-                      <label className="col-md-4 col-form-label text-md-right">
-                        Mật khẩu
-                      </label>
-                      <div className="col-md-6">
+                      <label className="col-md-2 col-form-label text-md-right"></label>
+                      <div className="col-md-8">
                         <input
                           value={password}
                           type="password"
                           className="form-control"
-                          placeholder="Nhập mật khẩu..."
+                          placeholder="Nhập mật khẩu của bạn..."
                           required
                           onChange={(e) => setPassword(e.target.value)}
                         />
@@ -88,7 +101,7 @@ export default function Auth() {
                     </div>
 
                     <div className="form-group row">
-                      <div className="col-md-6 offset-md-4">
+                      <div className="col-md-4 offset-md-4">
                         <div className="checkbox">
                           <label>
                             <input type="checkbox" name="remember" /> Nhớ mật
@@ -98,17 +111,31 @@ export default function Auth() {
                       </div>
                     </div>
 
-                    <div className="col-md-6 offset-md-4">
-                      <button type="submit" className="btn btn-primary">
+                    <div className="col-md-6 offset-md-3">
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        style={{ width: "100%" }}
+                      >
                         Đăng nhập
                       </button>
+                    </div>
+                    <div className="col-md-6 offset-md-3 mt-2">
                       <span
-                        className="btn btn-outline-danger ml-2"
+                        className="btn btn-danger"
+                        style={{ width: "100%" }}
                         onClick={() => history.push("/register")}
                       >
                         Đăng ký tài khoản
                       </span>
-                      <span className="btn btn-link">Bạn quên mật khẩu?</span>
+                    </div>
+                    <div className="col-md-6 offset-md-3 mt-2">
+                      <span
+                        className="btn btn-link"
+                        style={{ textAlign: "center", width: "100%" }}
+                      >
+                        Bạn quên mật khẩu?
+                      </span>
                     </div>
                   </form>
                 </div>

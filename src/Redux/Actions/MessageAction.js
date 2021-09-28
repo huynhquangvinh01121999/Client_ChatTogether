@@ -1,11 +1,12 @@
 import callApi from "axios";
 import { getMessages, updateMessage } from "../Reducers/MessagesReducer";
+import { PREX } from "../../contants/prev";
 
 // const url = "http://localhost:3001";
 const url = "https://chat-socket-mern.herokuapp.com";
 
 export const handleMessageToMe = (dispatch) => {
-  const user = localStorage.getItem("userInfo");
+  const user = localStorage.getItem(PREX + "userInfo");
   callApi({
     method: "get",
     url: url + `/getMessagesToMe?username=${user}`,

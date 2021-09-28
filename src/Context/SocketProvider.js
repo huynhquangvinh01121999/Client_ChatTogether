@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { io } from "socket.io-client";
 
-export const SocketContext = React.createContext();
+const SocketContext = React.createContext();
+
+export function useSocket() {
+  return useContext(SocketContext);
+}
 
 // const uri = "http://localhost:3001/";
 const uri = "https://chat-socket-mern.herokuapp.com/";
+// const socket = io(uri, { transports: ["websocket"] });
 
-export default function SocketProvider({ children }) {
+export function SocketProvider({ children }) {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    setSocket(io(uri, { transports: ["websocket"] }));
+    const newSocket = io(uri, { transports: ["websocket"] });
+    setSocket(newSocket);
+    // return () => newSocket.close();
   }, []);
 
   return (
