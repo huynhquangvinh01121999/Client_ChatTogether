@@ -1,4 +1,4 @@
-# Ứng dụng chat MERN cùng nhau phạm vi toàn cầu
+# Ứng dụng chat MERN Socket
 
 ## Công nghệ sử dụng: MERN - Redux
 ## Deploy: https://alohachat-together.netlify.app/
