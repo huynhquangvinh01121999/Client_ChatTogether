@@ -74,7 +74,7 @@ export default function Home() {
       });
     });
     // client nhận thông báo từ server gửi data về để update ds client khi có client login
-    socket.on("replySetOnline", (data) => {
+    socket.on("updateUserInbox", (data) => {
       handleUpdateClientId(dispatch, data);
     });
   });
