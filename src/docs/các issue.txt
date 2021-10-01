@@ -1,0 +1,10 @@
+Các issue gặp phải:
+- Chưa load được đoạn thoại tin nhắn đầu tiên của người đầu tiên khi vào trang chủ
+	+ Nguyên nhân: do biến username ko check đc khi lấy data từ redecer users
+
+- Chưa scroll xuống cuối tin nhắn đc : đã fix
+- khi logout thì dispatch lại offline cho client đó
+ khi logout -> setUserInbox -> null : đã fix
+
+
+- setClientId khi login vô : đang gặp lỗi khi có nhìu user login : giải pháp 1: chuyển vào socketProvider
